@@ -30,14 +30,43 @@ app.use(bodyParser.json());
 // Definindo uma porta onde será executada a nossa api
 var port = process.env.port || 8000;
 
-// Rotas da nossa API
-/*******************/
+// Vai pegar todas as instâncias rotas do express
+var router = express.Router(); 
 
-var router = express.Router(); // Vai pegar todas as instâncias rotas do express
+// Rotas da nossa API
+/*****************************************************/
+router.use(function(req, res, next) {
+  console.log('Algo está acontecendo aqui...');
+  next();
+});
 
 //Criando uma rota de exemplo
 router.get('/', function(req, res) {
   res.json({message: 'Beleza! Bem vindo a nossa loja XYZ'})
+});
+
+//APIS 
+/*****************************************************/
+
+//Rotas que terminarem com /produtos (Servir: GET ALL & POST)
+router.route('/produtos')
+
+/*1) Método: Criar Produto(acessar em: POST http://localhost:8000/api/produtos)*/
+.post(function(req, res) {
+  var produto = new Produto();
+
+
+// Aqui vamos setar os campos do produto (via request)
+  produto.nome = req.body.nome;
+  produto.preco = req.body.preco;
+  produto.descricao = req.body.descricao;
+
+  produto.save(function(err) { 
+    if(err) 
+    res.send('Erro ao tentar salvar o produto' + error);
+
+    res.json({ message: 'Produto cadastrado com sucesso!'});
+  });
 });
 
 // Definindo um padrão das rotas prefixadas: '/api'
