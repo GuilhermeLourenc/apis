@@ -67,7 +67,18 @@ router.route('/produtos')
 
     res.json({ message: 'Produto cadastrado com sucesso!'});
   });
+})
+
+/*2) Método: Selecionar todos os produtos(acessar em: GET http://localhost:8000/api/produtos)*/
+.get(function(req, res){
+  Produto.find(function(error, produtos){
+    if(error) 
+    res.send('Erro ao tentar selecionar todos os produtos' + error)
+ 
+  res.json(produtos);
+  });
 });
+
 
 // Definindo um padrão das rotas prefixadas: '/api'
 app.use('/api', router); // Todas as rotas vão ser prefixadas com o API
