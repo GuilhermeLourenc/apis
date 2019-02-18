@@ -15,10 +15,13 @@ var mongoose  = require('mongoose');
 var Produto = require('./app/models/produto');
 
 //URI: MongoDB Atlas
-mongoose.connect('mongodb://guigomes:<gui123>@node-crud-api-shard-00-00-qeept.azure.mongodb.net:27017,node-crud-api-shard-00-01-qeept.azure.mongodb.net:27017,node-crud-api-shard-00-02-qeept.azure.mongodb.net:27017/test?ssl=true&replicaSet=node-crud-api-shard-0&authSource=admin&retryWrites=true');
+//mongoose.connect('mongodb://guigomes:gui123@node-crud-api-shard-00-00-qeept.azure.mongodb.net:27017,node-crud-api-shard-00-01-qeept.azure.mongodb.net:27017,node-crud-api-shard-00-02-qeept.azure.mongodb.net:27017/test?ssl=true&replicaSet=node-crud-api-shard-0&authSource=admin&retryWrites=true', {
+//  useMongoClient:true
+//});
 
 // Maneira Local
-//mongoose.connect('mongodb://localhost/node-crud-api');
+mongoose.connect('mongodb://localhost:27017/node-crud-api', {useNewUrlParser: true});
+
 
 // Configuração da variável app para usar o 'body-parser() para retornar os dados a partir de um json'
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,6 +30,8 @@ app.use(bodyParser.json());
 // Definindo uma porta onde será executada a nossa api
 var port = process.env.port || 8000;
 
+// Rotas da nossa API
+/*******************/
 
 var router = express.Router(); // Vai pegar todas as instâncias rotas do express
 
